@@ -14,6 +14,15 @@ export const TimeSlider: React.FC<TimeSliderProps> = ({ defaultValue = 100 }) =>
     const { x, width } = refElement.current?.getBoundingClientRect() || { x: 0, width: 0 };
     const { position, isDragging, onMouseDown } = useDragElement();
     const [value, setValue] = React.useState(defaultValue);
+
+    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        const positionNew = e.clientX - x;
+        if (positionNew >= 0 && positionNew <= width) {
+            const valueNew = Math.round((positionNew / width) * 100);
+            valueNew !== value && setValue(valueNew);
+        }
+    };
+
     React.useEffect(() => {
         if (isDragging) {
             const positionNew = position.x - x;
@@ -40,6 +49,7 @@ export const TimeSlider: React.FC<TimeSliderProps> = ({ defaultValue = 100 }) =>
                             var(--progressbar-player-bg) 100%)
                         `,
                 }}
+                onClick={handleClick}
             >
                 <Container
                     style={{

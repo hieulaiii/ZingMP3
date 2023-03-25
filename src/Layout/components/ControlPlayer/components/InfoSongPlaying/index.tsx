@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
 import { Img, Text } from '@/components/common/Element';
-import { ButtonIcon } from '@/components/common/interaction';
-import { Container } from '@/components/common/Layout';
+import { ButtonIcon, Popper } from '@/components/common/interaction';
+import { Container, ContextMenu } from '@/components/common/Layout';
 import { TextCustomHover } from '@/components/common/Layout/SongCard/styled';
 
 export const InfoSongPlaying: React.FC = () => {
@@ -23,7 +23,9 @@ export const InfoSongPlaying: React.FC = () => {
             </Container>
             <Container tw="gap-2">
                 <ButtonIcon content={t('add_to_library')} icon="ic-like" hover />
-                <ButtonIcon content={t('see_more')} icon="ic-more" hover />
+                <Popper content={<ContextMenu />} placement="bottom-start">
+                    <ButtonIcon content={t('see_more')} icon="ic-more" hover />
+                </Popper>
             </Container>
         </Container>
     );

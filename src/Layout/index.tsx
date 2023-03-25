@@ -1,16 +1,20 @@
+import { Outlet } from 'react-router-dom';
+
 import { Container } from '@/components/common/Layout';
 
 import { ControlPlayer, Header, SideBar } from './components';
 
-export const Layout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => (
+export const Layout: React.FC = () => (
     <Container tw="flex-col h-screen justify-between">
         <Container>
-            <Container tw="w-[240px] flex-shrink-0">
+            <Container tw="w-[240px] shrink-0">
                 <SideBar />
             </Container>
-            <Container tw="flex-col w-full">
+            <Container tw="flex-col w-full h-[calc(100vh-90px)] overflow-auto">
                 <Header />
-                {children}
+                <Container tw="py-[100px]">
+                    <Outlet />
+                </Container>
             </Container>
         </Container>
         <ControlPlayer />

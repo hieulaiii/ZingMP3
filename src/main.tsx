@@ -12,9 +12,7 @@ root.render(
     <StateProvider>
         <GlobalStyles />
         <I18Provider>
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>
+            <App />
         </I18Provider>
     </StateProvider>
 );

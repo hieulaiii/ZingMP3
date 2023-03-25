@@ -1,9 +1,10 @@
-import { Container, ContextMenu, DynamicCard } from '@/components/common/Layout';
+import React from 'react';
 
-export const Discover: React.FC = () => (
+import { Container } from '@/components/common/Layout';
+import { Discover } from '@/components/Discover';
+
+export const DiscoverPage: React.FC = () => (
     <Container tw="flex items-center flex-col w-full">
-        <h1>Discover</h1>
-        <DynamicCard />
-        <ContextMenu />
+        <Discover />
     </Container>
 );

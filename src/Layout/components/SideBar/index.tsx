@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as Album } from '@/assets/icons/sideBar/album.svg';
 import { ReactComponent as CD } from '@/assets/icons/sideBar/cd.svg';
@@ -11,20 +12,22 @@ import { ReactComponent as MV } from '@/assets/icons/sideBar/mv.svg';
 import { ReactComponent as Radio } from '@/assets/icons/sideBar/radio.svg';
 import { ReactComponent as Star } from '@/assets/icons/sideBar/star.svg';
 import { ReactComponent as Category } from '@/assets/icons/sideBar/type.svg';
-import { Label, Text } from '@/components/common/Element';
-import { Icon } from '@/components/common/interaction';
+import { Text } from '@/components/common/Element';
+import { Button, Icon } from '@/components/common/interaction';
 import { Container } from '@/components/common/Layout';
+import { Page, routerPaths } from '@/routers';
 
 import { SideBarCard, SiteItem } from './components';
 import { Line, LogoImage, Wrapper } from './styled';
-import { ActivePage, SiteMaps } from './type';
+import { SiteMaps } from './type';
 
 export const SideBar: React.FC = () => {
     const { t } = useTranslation('layout');
-    const [activePage, setActivePage] = React.useState<ActivePage>('discover' as ActivePage);
-    const navigateToActivePage = (newActivePage: ActivePage) => {
+    const navigate = useNavigate();
+    const [activePage, setActivePage] = React.useState<Page>('discover' as Page);
+    const navigateToActivePage = (newActivePage: Page) => {
         setActivePage(newActivePage);
-        console.log(newActivePage);
+        navigate(routerPaths[newActivePage]);
     };
     const siteMaps: SiteMaps[] = [
         {
@@ -87,10 +90,10 @@ export const SideBar: React.FC = () => {
     ];
     return (
         <Wrapper>
-            <Container tw="h-[70px] pl-[28px] pr-[25px] items-center flex-shrink-0">
+            <Container tw="h-[70px] pl-7 pr-[25px] items-center flex-shrink-0">
                 <LogoImage />
             </Container>
-            <Container tw="flex-col flex-shrink-0">
+            <Container tw="flex-col shrink-0">
                 {siteMaps.map((siteMap) => (
                     <SiteItem {...siteMap} active={activePage === siteMap.key} />
                 ))}
@@ -105,21 +108,27 @@ export const SideBar: React.FC = () => {
                 <SideBarCard
                     text={t('text_card_login')}
                     button={
-                        <Label
-                            text={t('login', { ns: 'common' })}
-                            tw="text-white border-white py-[6px] px-[35px] font-semibold drop-shadow-sidebarText"
-                        />
+                        <Button
+                            variant="outlined"
+                            tw="border-white py-[6px] px-[35px] font-semibold drop-shadow-sidebarText uppercase"
+                            borderRadius="full"
+                        >
+                            {t('login', { ns: 'common' })}
+                        </Button>
                     }
                 />
                 <SideBarCard
                     tw="bg-bgSidebar"
                     text={t('text_card_vip')}
                     button={
-                        <Label
-                            text={t('vip_upgrade')}
-                            tw="bg-yellow text-black border-transparent py-[6px] px-[35px] 
+                        <Button
+                            variant="link"
+                            borderRadius="full"
+                            tw="!bg-yellow text-black py-[6px] px-[35px] uppercase
                            drop-shadow-sidebarText font-bold drop-shadow-sidebarText"
-                        />
+                        >
+                            {t('vip_upgrade')}
+                        </Button>
                     }
                 />
             </Container>

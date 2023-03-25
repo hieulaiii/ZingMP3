@@ -14,6 +14,7 @@ interface ButtonIconProps {
     tippyProps?: TippyProps;
     size?: ButtonSize;
     hover?: boolean;
+    fontSize?: number;
     isBg?: boolean;
     disabled?: boolean;
 }
@@ -22,21 +23,25 @@ export const ButtonIcon: React.FC<ButtonIconProps> = ({
     icon,
     content,
     tippyProps,
+    fontSize,
     disabled = false,
     ...props
-}) => (
-    <Tippy
-        content={
-            typeof content === 'string' ? (
-                <Span tw="text-[11px] tracking-tight">{content}</Span>
-            ) : (
-                <>{content}</>
-            )
-        }
-        {...tippyProps}
-    >
-        <Button {...props} disabled={disabled}>
-            <Icon icon={icon} />
-        </Button>
-    </Tippy>
-);
+}) => {
+    const Wrapper = '1321';
+    return (
+        <Tippy
+            content={
+                typeof content === 'string' ? (
+                    <Span tw="text-[11px] tracking-tight">{content}</Span>
+                ) : (
+                    <>{content}</>
+                )
+            }
+            {...tippyProps}
+        >
+            <Button {...props} disabled={disabled}>
+                <Icon icon={icon} size={fontSize} />
+            </Button>
+        </Tippy>
+    );
+};

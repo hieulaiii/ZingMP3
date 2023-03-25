@@ -1,7 +1,11 @@
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
     theme: {
-        colors: {
+        colors: ({ colors }) => ({
+            inherit: colors.inherit,
+            current: colors.current,
             white: 'var(--white)',
             black: 'var(--black)',
             yellow: 'var(--yellow)',
@@ -9,6 +13,9 @@ module.exports = {
             green: 'var(--green)',
             gray: 'var(--gray)',
             red: 'var(--red)',
+            icon: {
+                setting: 'var(--icon-setting)',
+            },
             purple: {
                 primary: 'var(--purple-primary)',
             },
@@ -20,7 +27,9 @@ module.exports = {
                 80: 'var(--dark-alpha-80)',
             },
             whiteAlpha: {
+                5: 'var(--white-alpha-5)',
                 10: 'var(--white-alpha-10)',
+                15: 'var(--white-alpha-15)',
                 50: 'var(--white-alpha-50)',
                 70: 'var(--white-alpha-70)',
                 80: 'var(--white-alpha-80)',
@@ -50,7 +59,8 @@ module.exports = {
                 linkHover: 'var(--link-text-hover)',
                 navigation: 'var(--navigation-text)',
             },
-        },
+        }),
+
         fontFamily: {
             main: ['Inter', 'sans-serif'],
         },
@@ -65,6 +75,21 @@ module.exports = {
             dropShadow: {
                 sidebarText: 'var(--sidebar-drop-shadow-text)',
             },
+            keyframes: {
+                moveRight: {
+                    '0%': { transform: 'translateX(0)', opacity: 1 },
+                    '100%': { transform: 'translateX(100%)', opacity: 0 },
+                },
+                moveLeft: {
+                    '0%': { transform: 'translateX(-100%)', opacity: 0 },
+                    '100%': { transform: 'translateX(0%)', opacity: 1 },
+                },
+            },
+            animation: {
+                moveRight: 'moveRight 500ms linear',
+                moveLeft: 'moveLeft 500ms linear ',
+                moveRightRevers: 'moveRight 1s linear infinite reverse',
+            },
         },
     },
     variants: {
@@ -72,4 +97,47 @@ module.exports = {
             display: ['group-hover'],
         },
     },
+    plugins: [
+        plugin(
+            function ({ matchUtilities, addUtilities, theme, variants }) {
+                const values = theme('lineClamp');
+                matchUtilities(
+                    {
+                        'line-clamp': (value) => ({
+                            overflow: 'hidden',
+                            display: '-webkit-box',
+                            '-webkit-box-orient': 'vertical',
+                            '-webkit-line-clamp': `${value}`,
+                        }),
+                    },
+                    { values }
+                );
+                addUtilities(
+                    [
+                        {
+                            '.line-clamp-none': {
+                                '-webkit-line-clamp': 'unset',
+                            },
+                        },
+                    ],
+                    variants('lineClamp')
+                );
+            },
+            {
+                theme: {
+                    lineClamp: {
+                        1: '1',
+                        2: '2',
+                        3: '3',
+                        4: '4',
+                        5: '5',
+                        6: '6',
+                    },
+                },
+                variants: {
+                    lineClamp: ['responsive'],
+                },
+            }
+        ),
+    ],
 };
