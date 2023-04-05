@@ -1,94 +1,132 @@
 import React from 'react';
 
-import { convertNumberToTime } from '@/common';
-import { ISong } from '@/lib/interface';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useTranslation } from 'react-i18next';
+// eslint-disable-next-line import/order
+import tw from 'twin.macro';
 
-//import { VipLabel } from './components';
+// eslint-disable-next-line import/no-unresolved
+import * as i from 'types';
+
+import { convertNumberToTime } from '@/common';
+import { useStreaming } from '@/lib/hook/song';
+import { audioPlaying, audioSrc, songPlaying } from '@/lib/states';
+
+import { VipLabel } from './components';
 import { TextCustom, TextCustomHover } from './styled';
+import { SongCardProps } from './type';
 import { Img, Text } from '../../Element';
-import { ArtirsItem, ButtonIcon, Icon, Popper } from '../../interaction';
+import { ArtistItem, ButtonIcon, Icon, Popper } from '../../interaction';
 import { Center } from '../Center';
 import { Container } from '../Container';
 import { ContextMenu } from '../ContextMenu';
 
-export interface SongCardProps {
-    isSimple?: boolean;
-    song: ISong;
-    onShow?: () => void;
-    onHidden?: () => void;
-}
+export const SongCard: React.FC<SongCardProps> = ({ song, onHidden, onShow, customShow }) => {
+    const { t } = useTranslation('common');
+    const customShowDefault = {
+        isAlbum: true,
+        isKaraoke: true,
+        isLike: true,
+        isMore: true,
+        isSongDuration: true,
+        ...customShow,
+    };
 
-export const SongCard: React.FC<SongCardProps> = ({ isSimple = false, song, onHidden, onShow }) => (
-    <Container className="group" tw="items-center justify-between p-[10px] cursor-pointer w-full">
-        <Container tw="gap-[10px] w-1/2">
-            <Container tw="relative w-10 h-10">
-                <Img
-                    src={
-                        song?.thumbnail ||
-                        `https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp
-                        /cover/9/f/5/8/9f58cc8633750bb9a12bc153854a870a.jpg`
-                    }
-                    tw="rounded"
-                />
-                <Center tw="absolute inset-0 bg-darkAlpha-50 hidden group-hover:flex">
-                    <Icon icon="ic-play" />
-                    {/* <Img
+    const audioPlayingValue = useAtomValue(audioPlaying);
+    const [songPlayingValue, setSongPlaying] = useAtom(songPlaying);
+    const setAudioSrc = useSetAtom(audioSrc);
+    const { loadStreamingData } = useStreaming();
+    const handleClick = async (song: i.ISong) => {
+        const srcSong = await loadStreamingData(song.encodeId);
+        setAudioSrc(srcSong[128]);
+        setSongPlaying(song);
+    };
+    return (
+        <Container
+            className="group"
+            tw="items-center justify-between p-[10px] cursor-pointer w-full"
+        >
+            <Container tw="gap-[10px] w-1/2" css={[!customShowDefault.isAlbum && tw`w-auto`]}>
+                <Container tw="relative w-10 h-10" onClick={() => handleClick(song)}>
+                    <Img
+                        src={
+                            song?.thumbnail ||
+                            `https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp
+                            /cover/9/f/5/8/9f58cc8633750bb9a12bc153854a870a.jpg`
+                        }
+                        tw="rounded"
+                    />
+                    <Center tw="absolute inset-0 bg-darkAlpha-50 hidden group-hover:flex">
+                        {audioPlayingValue && songPlayingValue?.encodeId === song.encodeId ? (
+                            <Img
                                 src="https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/icons/icon-playing.gif"
                                 tw="w-[18px] h-[18px] rounded-none"
-                            /> */}
-                </Center>
-            </Container>
-            <Container tw="flex-col justify-start gap-[3px]">
-                <Container tw="items-center gap-2">
-                    <Text>{song?.title}</Text>
-                    {/* <VipLabel /> */}
+                            />
+                        ) : (
+                            <Icon icon="ic-play" />
+                        )}
+                    </Center>
                 </Container>
-                <Container>
-                    {song?.artists?.map((artist, index) => (
-                        <ArtirsItem artist={artist} key={artist.id}>
-                            {`${artist.name}`}
-                            {artist.spotlight && <Icon icon="ic-star" size={10} tw="ml-[2px]" />}
-                            {index !== song.artists.length - 1 ? ', ' : ''}
-                        </ArtirsItem>
-                    ))}
-                </Container>
-            </Container>
-        </Container>
-        {!isSimple && (
-            <TextCustomHover tw="hidden md:block flex-1">{song.album?.title}</TextCustomHover>
-        )}
-        <Container tw="w-32 justify-end">
-            {!isSimple && (
-                <TextCustom className="duration-text" tw="group-hover:hidden block">
-                    {convertNumberToTime(song.duration)}
-                </TextCustom>
-            )}
-            <Container className="song-action" tw="gap-2 items-center group-hover:flex hidden">
-                {!isSimple && (
-                    <ButtonIcon
-                        size="large"
-                        icon="ic-karaoke"
-                        content="Phát cùng lời bài hát"
-                        hover
-                    />
-                )}
-
-                <ButtonIcon
-                    size="large"
-                    icon="ic-like"
-                    content="Thêm vào thư viện"
-                    hover
-                    tw="hidden md:block"
-                />
-                <Popper
-                    content={<ContextMenu />}
-                    placement="auto-start"
-                    onHidden={onHidden}
-                    onShow={onShow}
+                <Container
+                    tw="flex-col justify-start gap-[3px]"
+                    css={[song.streamingStatus === 2 && tw`opacity-50`]}
                 >
-                    <ButtonIcon size="large" icon="ic-more" content="Khác" hover />
-                </Popper>
+                    <Container tw="items-center gap-2">
+                        <Text>{song?.title}</Text>
+                        {song.streamingStatus === 2 && <VipLabel />}
+                    </Container>
+                    <Container>
+                        {song?.artists?.map((artist, index) => (
+                            <ArtistItem artist={artist} key={artist.id}>
+                                {`${artist.name}`}
+                                {artist.spotlight && (
+                                    <Icon icon="ic-star" size={10} tw="ml-[2px]" />
+                                )}
+                                {index !== song.artists.length - 1 ? ', ' : ''}
+                            </ArtistItem>
+                        ))}
+                    </Container>
+                </Container>
+            </Container>
+            {customShowDefault.isAlbum && (
+                <TextCustomHover tw="hidden md:block flex-1">{song.album?.title}</TextCustomHover>
+            )}
+            <Container tw="w-32 justify-end">
+                {customShowDefault.isSongDuration && (
+                    <TextCustom className="duration-text" tw="group-hover:hidden block">
+                        {convertNumberToTime(song.duration)}
+                    </TextCustom>
+                )}
+                <Container className="song-action" tw="gap-2 items-center group-hover:flex hidden">
+                    {customShowDefault.isKaraoke && (
+                        <ButtonIcon
+                            size="large"
+                            icon="ic-karaoke"
+                            content={t('play_along_with_the_lyrics')}
+                            hover
+                        />
+                    )}
+                    {customShowDefault.isLike && (
+                        <ButtonIcon
+                            size="large"
+                            icon="ic-like"
+                            content={t('add_to_library')}
+                            hover
+                            tw="hidden md:block"
+                        />
+                    )}
+                    {customShowDefault.isMore && (
+                        <Popper
+                            content={<ContextMenu />}
+                            placement="auto-start"
+                            onHidden={onHidden}
+                            onShow={onShow}
+                        >
+                            <ButtonIcon size="large" icon="ic-more" content={t('other')} hover />
+                        </Popper>
+                    )}
+                </Container>
             </Container>
         </Container>
-    </Container>
-);
+    );
+};

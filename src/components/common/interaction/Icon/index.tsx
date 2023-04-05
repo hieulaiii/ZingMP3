@@ -7,13 +7,7 @@ interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
     background?: string;
 }
 export const Icon: React.FC<IconProps> = ({ icon, width, height, size, background, ...props }) => (
-    <span
-        {...props}
-        tw=" text-base leading-none flex justify-center items-center text-inherit"
-        style={{
-            color: 'inherit',
-        }}
-    >
+    <span {...props} tw=" text-base leading-none flex justify-center items-center text-inherit">
         <i
             className={icon}
             style={{

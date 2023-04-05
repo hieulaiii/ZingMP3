@@ -7,6 +7,8 @@ import { ButtonSize } from './type';
 import { Icon } from '../Icon';
 
 import 'tippy.js/dist/tippy.css';
+// eslint-disable-next-line import/order
+import { TwStyle } from 'twin.macro';
 
 interface ButtonIconProps {
     icon: string;
@@ -17,6 +19,8 @@ interface ButtonIconProps {
     fontSize?: number;
     isBg?: boolean;
     disabled?: boolean;
+    onClick?: () => void;
+    css?: TwStyle;
 }
 
 export const ButtonIcon: React.FC<ButtonIconProps> = ({
@@ -25,23 +29,22 @@ export const ButtonIcon: React.FC<ButtonIconProps> = ({
     tippyProps,
     fontSize,
     disabled = false,
+    onClick,
+    css,
     ...props
-}) => {
-    const Wrapper = '1321';
-    return (
-        <Tippy
-            content={
-                typeof content === 'string' ? (
-                    <Span tw="text-[11px] tracking-tight">{content}</Span>
-                ) : (
-                    <>{content}</>
-                )
-            }
-            {...tippyProps}
-        >
-            <Button {...props} disabled={disabled}>
-                <Icon icon={icon} size={fontSize} />
-            </Button>
-        </Tippy>
-    );
-};
+}) => (
+    <Tippy
+        content={
+            typeof content === 'string' ? (
+                <Span tw="text-[11px] tracking-tight">{content}</Span>
+            ) : (
+                <>{content}</>
+            )
+        }
+        {...tippyProps}
+    >
+        <Button {...props} disabled={disabled} onClick={onClick} css={css}>
+            <Icon icon={icon} size={fontSize} />
+        </Button>
+    </Tippy>
+);

@@ -4,4 +4,4 @@ export * from './ButtonIcon';
 export * from './TimeSlider';
 export * from './Button';
 export * from './Popper';
-export * from './ArtirsItem';
+export * from './ArtistItem';

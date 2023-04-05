@@ -8,6 +8,13 @@ declare module 'twin.macro' {
     const css: typeof cssImport;
 }
 
+declare module 'tippy.js' {
+    interface TippyPropsNew<T> extends TippyProps<T> {
+        tw?: string;
+        css?: CSSProp;
+    }
+}
+
 declare module 'react' {
     // The css prop
     interface HTMLAttributes<T> extends DOMAttributes<T> {

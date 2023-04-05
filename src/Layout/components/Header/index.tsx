@@ -8,7 +8,10 @@ import { Container } from '@/components/common/Layout';
 import { FormSearch } from './components';
 
 export const Header: React.FC = () => (
-    <header tw="fixed z-10 top-0 w-[calc(100vw - 240px - 6px)] flex h-[70px] bg-layout-header px-[60px]">
+    <header
+        tw="fixed z-10 top-0 w-[calc(100vw - 240px - 6px)] flex h-[70px] 
+    bg-layout-header px-[60px] md:px-5  backdrop-blur-[50px]"
+    >
         <Container tw="items-center justify-between w-full">
             <Container tw="gap-5">
                 <Button tw="text-whiteAlpha-50 p-0" variant="link">

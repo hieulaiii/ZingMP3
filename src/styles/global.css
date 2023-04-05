@@ -42,7 +42,6 @@
     --empty-upload-icon: url(https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/icons/empty-upload-dark.png);
     --box-shadow-queue: 0 1px 0 rgba(0, 0, 0, 0.3), 0 1px 6px rgba(0, 0, 0, 0.3),
         inset 0 1px 1px rgba(25, 255, 255, 0.05);
-    --chart-bg-img-alpha: rgba(30, 30, 30, 0.9);
     --chart-box-bg-alpha: hsla(0, 0%, 100%, 0.05);
     --chart-logo-color: #fff;
     --chart-icon-play-color: var(--purple-primary);
@@ -69,8 +68,8 @@
     --hover-tooltip-opacity: hsla(0, 0%, 100%, 0.3);
     --sidebar-drop-shadow-text: 0 0 2px rgba(255, 255, 255, 0.3);
 
-    --progressbar-active-bg: #fff;
-    --progressbar-player-bg: #ffffff4d;
+    --progressBar-active-bg: #fff;
+    --progressBar-player-bg: #ffffff4d;
 
     --icon-setting: #d8d8d8;
 }

@@ -1,9 +1,11 @@
-import { IArtists } from '@/lib/interface';
 import Tippy from '@tippyjs/react';
+
+import { IArtists } from '@/lib/interface';
+
 import { Span } from '../../Element';
 import { ArtistSummary } from '../../Layout';
 
-interface ArtirsItemProps {
+interface ArtistItemProps {
     content?: React.ReactNode;
     placement?:
         | 'top'
@@ -24,7 +26,7 @@ interface ArtirsItemProps {
     artist: IArtists;
 }
 
-export const ArtirsItem: React.FC<React.PropsWithChildren<ArtirsItemProps>> = ({
+export const ArtistItem: React.FC<React.PropsWithChildren<ArtistItemProps>> = ({
     children,
     artist,
     placement = 'bottom',

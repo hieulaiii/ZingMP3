@@ -13,6 +13,7 @@ export const LatestProduct: React.FC<LatestProductProps> = () => (
         >
             <Img
                 className="img-element"
+                // eslint-disable-next-line max-len
                 src="https://photo-resize-zmp3.zmdcdn.me/w320_r1x1_webp/cover/5/b/5/7/5b57e6c61848cfed2fa19cd31b293898.jpg"
                 tw="rounded duration-500"
             />

@@ -44,7 +44,6 @@ export const BannerCarousel: React.FC = () => {
                 slideNextClass="banner-next"
                 slidePrevClass="banner-prev"
                 loop
-                onBeforeSlideChangeStart={(s) => console.log(s)}
             >
                 {items.map((item: IBanner) => (
                     <SwiperSlide key={item.encodeId}>

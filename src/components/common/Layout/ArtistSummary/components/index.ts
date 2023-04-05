@@ -1,1 +1,1 @@
-export * from './LatestProduct';
+export * from './NewestProduct';

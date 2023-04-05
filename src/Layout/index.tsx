@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import { Container } from '@/components/common/Layout';
 
-import { ControlPlayer, Header, SideBar } from './components';
+import { Audio, ControlPlayer, Header, SideBar } from './components';
 
 export const Layout: React.FC = () => (
     <Container tw="flex-col h-screen justify-between">
@@ -12,11 +12,12 @@ export const Layout: React.FC = () => (
             </Container>
             <Container tw="flex-col w-full h-[calc(100vh-90px)] overflow-auto">
                 <Header />
-                <Container tw="py-[100px]">
+                <Container tw="pt-[100px]">
                     <Outlet />
                 </Container>
             </Container>
         </Container>
         <ControlPlayer />
+        <Audio />
     </Container>
 );

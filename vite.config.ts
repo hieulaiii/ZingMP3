@@ -2,7 +2,6 @@
 import react from '@vitejs/plugin-react';
 import * as path from 'path';
 import { defineConfig } from 'vite';
-// eslint-disable-next-line import/default
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
@@ -15,7 +14,10 @@ export default defineConfig({
         logOverride: { 'this-is-undefined-in-esm': 'silent' },
     },
     resolve: {
-        alias: [{ find: '@', replacement: path.join(__dirname, '/src') }],
+        alias: [
+            { find: 'types', replacement: path.join(__dirname, '/src/lib/interface') },
+            { find: '@', replacement: path.join(__dirname, '/src') },
+        ],
     },
     plugins: [
         react({

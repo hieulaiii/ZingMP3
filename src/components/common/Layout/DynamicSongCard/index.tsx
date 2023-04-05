@@ -5,11 +5,12 @@ import { ISong } from '@/lib/interface';
 import { Wrapper } from './styled';
 import { Container } from '../Container';
 import { SongCard } from '../SongCard';
+import { CustomShow } from '../SongCard/type';
 
 interface DynamicSongCardProps {
-    isSimple?: boolean;
     song: ISong;
     children?: React.ReactNode;
+    customShow?: CustomShow;
 }
 
 interface DynamicSongCardSubComponents {
@@ -18,8 +19,8 @@ interface DynamicSongCardSubComponents {
 
 export const DynamicSongCard: React.FC<DynamicSongCardProps> & DynamicSongCardSubComponents = ({
     children,
-    isSimple = false,
     song,
+    customShow,
     ...rest
 }) => {
     const [isHover, setIsHover] = React.useState<boolean>(false);
@@ -27,8 +28,8 @@ export const DynamicSongCard: React.FC<DynamicSongCardProps> & DynamicSongCardSu
         <Wrapper {...rest} isHover={isHover}>
             {children}
             <SongCard
+                customShow={customShow}
                 song={song}
-                isSimple={isSimple}
                 onShow={() => setIsHover(true)}
                 onHidden={() => setIsHover(false)}
             />

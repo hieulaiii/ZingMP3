@@ -47,10 +47,11 @@ module.exports = {
                 alpha: 'var(--alpha-layout-bg)',
                 player: 'var(--player-bg)',
                 sidebar: 'var(--sidebar-bg)',
-                progressbar: {
-                    active: 'var(--progressbar-active-bg)',
-                    player: 'var(--progressbar-player-bg)',
+                progressBar: {
+                    active: 'var(--progressBar-active-bg)',
+                    player: 'var(--progressBar-player-bg)',
                 },
+                chartBG: 'var(--chart-bg-img-alpha)',
             },
             textColor: {
                 primary: 'var(--text-primary)',
@@ -71,6 +72,8 @@ module.exports = {
             backgroundImage: {
                 logoZing: 'var(--img-logo-mp3)',
                 bgSidebar: 'linear-gradient(117deg,#5a4be7,#c86dd7 102%)',
+                WeekChart:
+                    "url('https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.9.19/static/media/week-chart-bg.edf332e5.jpg')",
             },
             dropShadow: {
                 sidebarText: 'var(--sidebar-drop-shadow-text)',

@@ -21,7 +21,6 @@ export const Transition: React.FC<React.PropsWithChildren<Props>> = ({
         if (!isShow) {
             timeout = setTimeout(() => {
                 setShow(isShow);
-                console.log('123213');
             }, time);
         } else {
             setShow(isShow);

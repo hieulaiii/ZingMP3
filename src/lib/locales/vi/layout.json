@@ -11,6 +11,12 @@
     "text_card_login":"Đăng nhập để khám phá playlist dành riêng cho bạn",
     "text_card_vip":"Nghe nhạc không quảng cáo cùng kho nhạc VIP",
     "vip_upgrade":"Nâng cấp vip",
-    "add_new_playlist":"Tạo playlist mới"
+    "add_new_playlist":"Tạo playlist mới",
+    "turn_on_shuffle":"Bật phát ngẫu nhiên",
+    "turn_off_shuffle":"Tắt phát ngẫu nhiên",
+    "turn_off_playback":"Tắt phát lại",
+    "turn_on_playback":"Bật phát lại",
+    "playback_one_song":"Phát lại bài hát"
+    
 
   }

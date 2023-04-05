@@ -6,6 +6,7 @@ import { Container } from '@/components/common/Layout';
 
 interface Props {
     rating: number;
+    isColorRate?: boolean;
 }
 
 const colorRate: Record<number, TwStyle> = {
@@ -14,12 +15,12 @@ const colorRate: Record<number, TwStyle> = {
     2: tw`[-webkit-text-stroke: 1.5px var(--red)]`,
 };
 
-export const StatusOnChart: React.FC<Props> = ({ rating }) => (
-    <Container tw="items-center [user-select: none] pr-[5px]">
+export const StatusOnChart: React.FC<Props> = ({ rating, isColorRate = true, ...rest }) => (
+    <Container tw="items-center [user-select: none] pr-[5px]" {...rest}>
         <Span
             tw="text-[32px] font-black whitespace-nowrap text-[#4a90e200] w-[60px] text-center 
         opacity-70 [-webkit-text-stroke: 1.5px var(--text-primary)]"
-            css={[colorRate[rating]]}
+            css={[isColorRate && colorRate[rating]]}
         >
             {rating + 1}
         </Span>
