@@ -7,21 +7,22 @@ interface Dependencies {
     readonly httpService: HTTPService;
 }
 
-export class SongService {
+export class SearchService {
     private readonly httpService: HTTPService;
     constructor({ httpService }: Dependencies) {
         this.httpService = httpService;
     }
 
-    public async getStreaming(id: string): Promise<i.IStreaming> {
+    public async getSearchKeyword(): Promise<i.ISearchKeyword[]> {
         const res = await this.httpService.get({
-            url: `streaming?id=${id}`,
+            url: 'search-keyword',
         });
         return res.data;
     }
-    public async getInfoSong(id: string): Promise<i.ISong> {
+    public async getSearchSuggestions(query: string): Promise<i.ISearchSuggestions> {
+        console.log('query', query);
         const res = await this.httpService.get({
-            url: `song-info?id=${id}`,
+            url: `search-suggestions?q=${query}`,
         });
         return res.data;
     }

@@ -1,6 +1,5 @@
 import { Img } from '@/components/common/Element';
-
-import { Container } from '../../../Container';
+import { Container } from '@/components/common/Layout';
 
 export const VipLabel: React.FC = () => (
     <Container tw="w-[26px] h-3">

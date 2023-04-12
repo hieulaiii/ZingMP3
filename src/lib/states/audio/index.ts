@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { atom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 
-export const audioSrc = atom<string | undefined>(undefined);
+import { keyStorage } from '@/lib/LocalStorage/key-storage';
+
+export const audioSrc = atomWithStorage<string | undefined>(keyStorage.songSrc, undefined);
 
 export const audioPlaying = atom<boolean>(false);
 
@@ -21,4 +24,4 @@ export enum LoopSongEnum {
 
 export const loopSong = atom<LoopSongType>(LoopSongEnum.NOLOOP);
 
-export const volume = atom<number>(1);
+export const volume = atomWithStorage<number>(keyStorage.songVolume, 1);

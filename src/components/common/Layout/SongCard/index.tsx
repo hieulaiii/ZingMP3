@@ -1,21 +1,19 @@
 import React from 'react';
 
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line import/order
 import tw from 'twin.macro';
 
 // eslint-disable-next-line import/no-unresolved
-import * as i from 'types';
 
 import { convertNumberToTime } from '@/common';
-import { useStreaming } from '@/lib/hook/song';
-import { audioPlaying, audioSrc, songPlaying } from '@/lib/states';
+import { usePlaySong } from '@/lib/hook/song';
+import { audioPlaying, songPlaying } from '@/lib/states';
 
-import { VipLabel } from './components';
 import { TextCustom, TextCustomHover } from './styled';
 import { SongCardProps } from './type';
-import { Img, Text } from '../../Element';
+import { Img, Text, VipLabel } from '../../Element';
 import { ArtistItem, ButtonIcon, Icon, Popper } from '../../interaction';
 import { Center } from '../Center';
 import { Container } from '../Container';
@@ -32,22 +30,17 @@ export const SongCard: React.FC<SongCardProps> = ({ song, onHidden, onShow, cust
         ...customShow,
     };
 
+    const songPlayingValue = useAtomValue(songPlaying);
     const audioPlayingValue = useAtomValue(audioPlaying);
-    const [songPlayingValue, setSongPlaying] = useAtom(songPlaying);
-    const setAudioSrc = useSetAtom(audioSrc);
-    const { loadStreamingData } = useStreaming();
-    const handleClick = async (song: i.ISong) => {
-        const srcSong = await loadStreamingData(song.encodeId);
-        setAudioSrc(srcSong[128]);
-        setSongPlaying(song);
-    };
+    const { handlePlaySong } = usePlaySong();
+
     return (
         <Container
             className="group"
             tw="items-center justify-between p-[10px] cursor-pointer w-full"
         >
             <Container tw="gap-[10px] w-1/2" css={[!customShowDefault.isAlbum && tw`w-auto`]}>
-                <Container tw="relative w-10 h-10" onClick={() => handleClick(song)}>
+                <Container tw="relative w-10 h-10" onClick={() => handlePlaySong(song.encodeId)}>
                     <Img
                         src={
                             song?.thumbnail ||

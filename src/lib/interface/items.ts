@@ -74,3 +74,50 @@ export interface IStreaming {
     128: string;
     320: string;
 }
+
+export interface ISuggestions {
+    type: number;
+    title: string;
+    id: string;
+    hasVideo: boolean;
+    thumb: string;
+    thumbVideo: string;
+    duration: number;
+    link: string;
+    modifiedTime: number;
+    lyricLink: string;
+    lyricId: string;
+    downloadTypes: string;
+    orgMD5: string;
+    userId: number;
+    euId: string;
+    privacy: number;
+    hLyricVersion: number;
+    releaseTime: number;
+    downloadStatus: number;
+    status: number;
+    playStatus: number;
+    artists: {
+        type: number;
+        id: string;
+        oaType: number;
+        artistType: number;
+        name: string;
+        aliasName: string;
+        avatar: string;
+        link: string;
+        playlistId: number;
+        followers: number;
+    }[];
+    genres: IGenres[];
+    disSPlatform: number;
+    disDPlatform: number;
+    boolAtt: number;
+    tracking: string;
+}
+
+export interface IGenres {
+    id: string;
+    name: string;
+    thumbS: string;
+}

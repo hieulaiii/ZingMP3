@@ -24,13 +24,6 @@ export const Audio: React.FC = () => {
 
     React.useEffect(() => {
         if (audio.current && audioSrcValue) {
-            setAudioPlaying(true);
-        }
-    }, [audioSrcValue]);
-
-    React.useEffect(() => {
-        console.log('audioPlayingValue', audioPlayingValue);
-        if (audio.current && audioSrcValue) {
             if (audioPlayingValue) {
                 audio.current.play();
             } else {
@@ -40,7 +33,6 @@ export const Audio: React.FC = () => {
     }, [audioPlayingValue, audioSrcValue]);
 
     React.useEffect(() => {
-        console.log(volumeValue);
         if (audio.current && audioSrcValue) {
             audio.current.volume = volumeValue;
         }
