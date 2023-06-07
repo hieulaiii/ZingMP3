@@ -13,3 +13,14 @@ export const useChart = () => {
         isError: error,
     };
 };
+
+const newReleaseFetcher = chartService.getNewReleaseChart.bind(chartService);
+
+export const useNewRelease = () => {
+    const { data, error } = useSWR(`/new-release`, newReleaseFetcher);
+    return {
+        newRelease: data,
+        isLoading: !error && !data,
+        isError: error,
+    };
+};

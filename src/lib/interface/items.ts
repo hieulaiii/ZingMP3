@@ -121,3 +121,17 @@ export interface IGenres {
     name: string;
     thumbS: string;
 }
+
+export interface ILyric {
+    BGMode:number;
+    defaultIBGUrls:string[];
+    enabledVideoBG:boolean;
+    file:string;
+    sentences: {
+        words:{
+            startTime:number;
+            endTime:number;
+            data:string;
+        }[]
+    }[]
+}

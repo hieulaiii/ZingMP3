@@ -19,4 +19,10 @@ export class ChartService {
         });
         return res.data;
     }
+    public async getNewReleaseChart(): Promise<i.NewRelease> {
+        const res = await this.httpService.get({
+            url: 'new-release',
+        });
+        return res.data;
+    }
 }

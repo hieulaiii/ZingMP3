@@ -49,7 +49,10 @@ export const SongCard: React.FC<SongCardProps> = ({ song, onHidden, onShow, cust
                         }
                         tw="rounded"
                     />
-                    <Center tw="absolute inset-0 bg-darkAlpha-50 hidden group-hover:flex">
+                    <Center
+                        tw="absolute inset-0 bg-darkAlpha-50 hidden group-hover:flex"
+                        css={[songPlayingValue?.encodeId === song.encodeId && tw`!flex`]}
+                    >
                         {audioPlayingValue && songPlayingValue?.encodeId === song.encodeId ? (
                             <Img
                                 src="https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/icons/icon-playing.gif"
@@ -68,7 +71,7 @@ export const SongCard: React.FC<SongCardProps> = ({ song, onHidden, onShow, cust
                         <Text>{song?.title}</Text>
                         {song.streamingStatus === 2 && <VipLabel />}
                     </Container>
-                    <Container>
+                    <Container tw="gap-1">
                         {song?.artists?.map((artist, index) => (
                             <ArtistItem artist={artist} key={artist.id}>
                                 {`${artist.name}`}

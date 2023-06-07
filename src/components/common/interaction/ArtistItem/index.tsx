@@ -1,4 +1,5 @@
 import Tippy from '@tippyjs/react';
+import tw from 'twin.macro';
 
 import { IArtists } from '@/lib/interface';
 
@@ -26,6 +27,10 @@ interface ArtistItemProps {
     artist: IArtists;
 }
 
+const ArtistLabel = tw(
+    Span
+)`text-whiteAlpha-50 text-xs font-medium cursor-pointer hover:(underline text-textColor-linkHover) flex truncate    `;
+
 export const ArtistItem: React.FC<React.PropsWithChildren<ArtistItemProps>> = ({
     children,
     artist,
@@ -39,12 +44,8 @@ export const ArtistItem: React.FC<React.PropsWithChildren<ArtistItemProps>> = ({
         arrow={false}
         tw="[.tippy-content]:p-0"
         interactive
+        delay={[1000, 0]}
     >
-        <Span
-            tw="text-whiteAlpha-50 text-xs font-medium cursor-pointer hover:(underline text-textColor-linkHover) flex"
-            {...rest}
-        >
-            {children}
-        </Span>
+        <ArtistLabel {...rest}>{children}</ArtistLabel>
     </Tippy>
 );

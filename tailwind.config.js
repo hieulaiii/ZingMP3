@@ -77,6 +77,7 @@ module.exports = {
             },
             dropShadow: {
                 sidebarText: 'var(--sidebar-drop-shadow-text)',
+                textHighlight: '0 0 40px #fff, 0 0 70px #fff',
             },
             keyframes: {
                 moveRight: {
@@ -87,11 +88,17 @@ module.exports = {
                     '0%': { transform: 'translateX(-100%)', opacity: 0 },
                     '100%': { transform: 'translateX(0%)', opacity: 1 },
                 },
+                rotateZ: {
+                    '0%': { transform: 'rotateZ(0deg)' },
+                    '100%': { transform: 'rotateZ(360deg)' },
+                },
             },
             animation: {
                 moveRight: 'moveRight 500ms linear',
                 moveLeft: 'moveLeft 500ms linear ',
                 moveRightRevers: 'moveRight 1s linear infinite reverse',
+                moveLeftRevers: 'moveLeft 1s linear infinite reverse',
+                rotateZ: 'rotateZ 1s linear infinite',
             },
         },
     },

@@ -57,7 +57,7 @@ export const SongCard: React.FC<SongCardProps> = ({ song, onHidden, onShow }) =>
                     </Container>
                     <Container>
                         {song?.artists?.map((artist, index) => (
-                            <Text>
+                            <Text key={index}>
                                 {artist.name}
                                 {index !== song.artists.length - 1 ? ', ' : ''}
                             </Text>

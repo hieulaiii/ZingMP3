@@ -15,6 +15,7 @@ import { ReactComponent as Category } from '@/assets/icons/sideBar/type.svg';
 import { Text } from '@/components/common/Element';
 import { Button, Icon } from '@/components/common/interaction';
 import { Container } from '@/components/common/Layout';
+import { useTabletScreen } from '@/lib/hook/view';
 import { Page, routerPaths } from '@/routers';
 
 import { SideBarCard, SiteItem } from './components';
@@ -23,6 +24,7 @@ import { SiteMaps } from './type';
 
 export const SideBar: React.FC = () => {
     const { t } = useTranslation('layout');
+    const isTablet = useTabletScreen();
     const navigate = useNavigate();
     const [activePage, setActivePage] = React.useState<Page>('discover' as Page);
     const navigateToActivePage = (newActivePage: Page) => {
@@ -105,37 +107,45 @@ export const SideBar: React.FC = () => {
                         <SiteItem {...siteMap} active={activePage === siteMap.key} />
                     ))}
                 </Container>
-                <SideBarCard
-                    text={t('text_card_login')}
-                    button={
-                        <Button
-                            variant="outlined"
-                            tw="border-white py-[6px] px-[35px] font-semibold drop-shadow-sidebarText uppercase"
-                            borderRadius="full"
-                        >
-                            {t('login', { ns: 'common' })}
-                        </Button>
-                    }
-                />
-                <SideBarCard
-                    tw="bg-bgSidebar"
-                    text={t('text_card_vip')}
-                    button={
-                        <Button
-                            variant="link"
-                            borderRadius="full"
-                            tw="!bg-yellow text-black py-[6px] px-[35px] uppercase
+                {!isTablet && (
+                    <>
+                        <SideBarCard
+                            text={t('text_card_login')}
+                            button={
+                                <Button
+                                    variant="outlined"
+                                    tw="border-white py-[6px] px-[35px] font-semibold drop-shadow-sidebarText uppercase"
+                                    borderRadius="full"
+                                >
+                                    {t('login', { ns: 'common' })}
+                                </Button>
+                            }
+                        />
+                        <SideBarCard
+                            tw="bg-bgSidebar"
+                            text={t('text_card_vip')}
+                            button={
+                                <Button
+                                    variant="link"
+                                    borderRadius="full"
+                                    tw="!bg-yellow text-black py-[6px] px-[35px] uppercase
                            drop-shadow-sidebarText font-bold drop-shadow-sidebarText"
-                        >
-                            {t('vip_upgrade')}
-                        </Button>
-                    }
-                />
+                                >
+                                    {t('vip_upgrade')}
+                                </Button>
+                            }
+                        />
+                    </>
+                )}
             </Container>
-            <Container tw="h-[54px] px-7 border-t border-whiteAlpha-10 flex-shrink-0 items-center gap-x-[10px]">
-                <Icon icon="ic-add" tw="drop-shadow-sidebarText font-bold" />
-                <Text tw="text-sm font-bold drop-shadow-sidebarText">{t('add_new_playlist')}</Text>
-            </Container>
+            {!isTablet && (
+                <Container tw="h-[54px] px-7 border-t border-whiteAlpha-10 flex-shrink-0 items-center gap-x-[10px]">
+                    <Icon icon="ic-add" tw="drop-shadow-sidebarText font-bold" />
+                    <Text tw="text-sm font-bold drop-shadow-sidebarText">
+                        {t('add_new_playlist')}
+                    </Text>
+                </Container>
+            )}
         </Wrapper>
     );
 };

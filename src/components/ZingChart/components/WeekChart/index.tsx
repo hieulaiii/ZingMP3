@@ -12,20 +12,20 @@ export const WeekChart: React.FC = () => {
     const country: Record<string, string> = {
         vn: 'Việt Nam',
         us: 'US-UK',
-        kr: 'K-Pop',
+        korea: 'K-Pop',
     };
     return (
-        <Container tw="relative -mx-[60px] px-[60px]">
+        <Container tw="relative mx-0 lg:-mx-[60px] px-[60px]">
             <Container tw="absolute inset-0 bg-WeekChart z-[-1] bg-cover grayscale" />
             <Container tw="absolute inset-0 bg-layout-chartBG z-[1]" />
-            <Container tw="relative flex-col gap-10 py-6 z-10">
+            <Container tw="relative flex-col gap-10 py-6 z-10 w-full">
                 <Text tw="text-[40px] font-bold capitalize text-white">Bảng Xếp Hạng Tuần</Text>
-                <Container tw="gap-4">
+                <Container tw="gap-4 flex-col lg:flex-row justify-between ">
                     {weekChart &&
                         Object.entries(weekChart).map(([key, value], index) => (
                             <Container
                                 key={index}
-                                tw="rounded-2xl flex-col bg-whiteAlpha-5 py-5 px-[10px]"
+                                tw="rounded-2xl flex-col bg-whiteAlpha-5 py-5 px-[10px] w-full"
                             >
                                 <Container tw="px-12 items-center gap-2 pb-2">
                                     <Text tw="text-[24px] font-bold capitalize text-white">

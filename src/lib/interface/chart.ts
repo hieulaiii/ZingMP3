@@ -51,3 +51,14 @@ export interface IChart {
     newRelease: ISong[];
     weekChart: Record<ICountry, IWeekChart>;
 }
+
+export interface NewRelease {
+    banner: string;
+    type: string;
+    link: string;
+    title: string;
+    sectionType: string;
+    sectionId: string;
+    viewType: string;
+    items: ISong[];
+}

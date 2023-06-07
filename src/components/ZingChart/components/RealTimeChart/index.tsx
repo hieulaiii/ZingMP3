@@ -17,11 +17,13 @@ import { Line } from 'react-chartjs-2';
 
 import { Container } from '@/components/common/Layout';
 import { useChart } from '@/lib/hook/chart';
+import { useTabletScreen } from '@/lib/hook/view';
 
 ChartJS.register(Title, Tooltip, LineElement, Legend, CategoryScale, LinearScale, PointElement);
 
 export const RealTimeChart = () => {
     const { chart } = useChart();
+    const isTablet = useTabletScreen();
     const chartRef = React.useRef(null);
     const dataSet = (key?: string) => {
         if (!key) return [];
@@ -112,7 +114,7 @@ export const RealTimeChart = () => {
                 },
                 ticks: {
                     font: {
-                        size: 12.5,
+                        size: !isTablet ? 12.5 : 10,
                         weight: 'bold',
                     },
                     color: '#8b8a8d',
@@ -139,7 +141,7 @@ export const RealTimeChart = () => {
         },
     };
     return (
-        <Container id="mychart" tw="h-[320px]">
+        <Container id="mychart" tw="h-[250px] lg:h-[320px]">
             <Line ref={chartRef} data={dataConfig} options={options} height={100} />
         </Container>
     );

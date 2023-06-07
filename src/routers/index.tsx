@@ -4,6 +4,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from '../Layout';
 import { DiscoverPage } from '../Pages/Discover';
 import { ZingChartPage } from '../Pages/ZingChart';
+import { NewMusicPage } from '@/Pages/NewMusic';
 
 export type Page =
     | 'profile'
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
             {
                 path: routerPaths.radio,
                 element: <ZingChartPage />,
+            },
+            {
+                path: routerPaths.newMusic,
+                element: <NewMusicPage />,
             },
         ],
     },

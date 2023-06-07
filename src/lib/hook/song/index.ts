@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { useSetAtom } from 'jotai';
 import useSWR from 'swr';
 
 import { appContainer } from '@/lib/core/container';
+import { getFileLyric } from '@/lib/core/infra/common';
 import { audioPlaying, audioSrc, songPlaying } from '@/lib/states';
 
 const { songService } = appContainer.cradle;
@@ -44,22 +46,41 @@ export const usePlaySong = () => {
     const setSongPlaying = useSetAtom(songPlaying);
     const setAudioPlaying = useSetAtom(audioPlaying);
     const setAudioSrc = useSetAtom(audioSrc);
-    const { streamingData } = useStreaming(idSong);
-    const { infoSong } = useInfoSong(idSong);
-
+    const { streamingData: stream } = useStreaming(idSong);
+    const { infoSong: song } = useInfoSong(idSong);
     React.useEffect(() => {
-        console.log(infoSong?.encodeId);
-        if (streamingData && infoSong) {
-            setAudioSrc(streamingData[128]);
-            setSongPlaying(infoSong);
+        if (stream && song) {
+            setAudioSrc(stream[128]);
+            setSongPlaying(song);
             setAudioPlaying(true);
         }
-    }, [streamingData?.[128], infoSong?.encodeId]);
+    }, [stream, song]);
     const handlePlaySong = (id: string) => {
         setIdSong(id);
     };
 
     return {
         handlePlaySong,
+    };
+};
+const lyricSongFetcher = songService.getLyric.bind(songService);
+export const useLyric = (id: string) => {
+    const { data, error } = useSWR(
+        id ? [id, `song-lyric${id}`] : null,
+        ([id]) => lyricSongFetcher(id),
+        {
+            revalidateIfStale: false,
+        }
+    );
+    const link = data?.file;
+    const { data: dataLyricSong } = useSWR(link, getFileLyric, {
+        revalidateIfStale: false,
+    });
+
+    return {
+        lyricSong: data,
+        dataLyricFile: dataLyricSong,
+        isLoading: !error && !data,
+        isError: error,
     };
 };

@@ -25,4 +25,10 @@ export class SongService {
         });
         return res.data;
     }
+    public async getLyric(id: string): Promise<i.ILyric> {
+        const res = await this.httpService.get({
+            url: `song-lyric?id=${id}`,
+        });
+        return res.data;
+    }
 }

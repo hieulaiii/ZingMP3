@@ -1,6 +1,9 @@
 import React from 'react';
 
+import { useAtomValue } from 'jotai';
+
 import { ISong } from '@/lib/interface';
+import { songPlaying } from '@/lib/states';
 
 import { Wrapper } from './styled';
 import { Container } from '../Container';
@@ -24,8 +27,9 @@ export const DynamicSongCard: React.FC<DynamicSongCardProps> & DynamicSongCardSu
     ...rest
 }) => {
     const [isHover, setIsHover] = React.useState<boolean>(false);
+    const songPlayingValue = useAtomValue(songPlaying);
     return (
-        <Wrapper {...rest} isHover={isHover}>
+        <Wrapper {...rest} isHover={isHover || song.encodeId === songPlayingValue?.encodeId}>
             {children}
             <SongCard
                 customShow={customShow}

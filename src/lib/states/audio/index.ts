@@ -25,3 +25,5 @@ export enum LoopSongEnum {
 export const loopSong = atom<LoopSongType>(LoopSongEnum.NOLOOP);
 
 export const volume = atomWithStorage<number>(keyStorage.songVolume, 1);
+
+export const avgAnalyser = atom<number>(0);
