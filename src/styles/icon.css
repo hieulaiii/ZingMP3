@@ -6,9 +6,8 @@
         url(https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.9.7/static/media/mp3-zing.2a3edced.woff)
             format('woff'),
         url(https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.9.7/static/media/mp3-zing.a1a3891f.ttf)
-            format('truetype'),
-        url(https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.9.7/static/media/mp3-zing.ffb65122.svg)
-            format('svg');
+            format('truetype');
+
     font-weight: 400;
     font-style: normal;
 }

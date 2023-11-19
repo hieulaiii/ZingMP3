@@ -19,7 +19,7 @@ export const InfoCD: React.FC = () => {
     return (
         <Container tw="items-center relative z-[2]">
             <Img
-                tw="max-w-[400px] h-[500px] rounded object-cover relative z-[2]"
+                tw="max-w-[400px] h-[500px] rounded object-cover relative z-[2] shadow-darkAlpha-10"
                 src={urImage}
                 alt=""
             />

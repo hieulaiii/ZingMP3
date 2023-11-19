@@ -1,10 +1,11 @@
-import { TestPage } from '@/Pages/Test';
 import { createBrowserRouter } from 'react-router-dom';
+
+import { NewMusicPage } from '@/Pages/NewMusic';
+import { TestPage } from '@/Pages/Test';
 
 import { Layout } from '../Layout';
 import { DiscoverPage } from '../Pages/Discover';
 import { ZingChartPage } from '../Pages/ZingChart';
-import { NewMusicPage } from '@/Pages/NewMusic';
 
 export type Page =
     | 'profile'

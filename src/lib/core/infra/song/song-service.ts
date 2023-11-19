@@ -31,4 +31,10 @@ export class SongService {
         });
         return res.data;
     }
+    public async getSongsRecommend(id: string): Promise<i.ISongsRecommend> {
+        const res = await this.httpService.get({
+            url: `songs?id=${id}&historyIds=${id}`,
+        });
+        return res.data;
+    }
 }

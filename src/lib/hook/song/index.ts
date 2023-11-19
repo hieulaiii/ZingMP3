@@ -84,3 +84,19 @@ export const useLyric = (id: string) => {
         isError: error,
     };
 };
+
+const songsRecommendFetcher = songService.getSongsRecommend.bind(songService);
+export const useSongsRecommend = (id: string) => {
+    const { data, error } = useSWR(
+        id ? [id, `songs-recommend${id}`] : null,
+        ([id]) => songsRecommendFetcher(id),
+        {
+            revalidateIfStale: false,
+        }
+    );
+    return {
+        songsRecommend: data,
+        isLoading: !error && !data,
+        isError: error,
+    };
+};

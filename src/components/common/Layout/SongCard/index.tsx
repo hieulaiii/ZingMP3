@@ -19,7 +19,14 @@ import { Center } from '../Center';
 import { Container } from '../Container';
 import { ContextMenu } from '../ContextMenu';
 
-export const SongCard: React.FC<SongCardProps> = ({ song, onHidden, onShow, customShow }) => {
+export const SongCard: React.FC<SongCardProps> = ({
+    song,
+    onHidden,
+    onShow,
+    customShow,
+    sizeIcon = 'large',
+    isShowIcon = false,
+}) => {
     const { t } = useTranslation('common');
     const customShowDefault = {
         isAlbum: true,
@@ -27,6 +34,8 @@ export const SongCard: React.FC<SongCardProps> = ({ song, onHidden, onShow, cust
         isLike: true,
         isMore: true,
         isSongDuration: true,
+        isShortTitle: false,
+        isShowAddPlaylist: false,
         ...customShow,
     };
 
@@ -68,10 +77,15 @@ export const SongCard: React.FC<SongCardProps> = ({ song, onHidden, onShow, cust
                     css={[song.streamingStatus === 2 && tw`opacity-50`]}
                 >
                     <Container tw="items-center gap-2">
-                        <Text>{song?.title}</Text>
+                        <Text css={[customShowDefault.isShortTitle && tw`w-[150px]`]} tw="truncate">
+                            {song?.title}
+                        </Text>
                         {song.streamingStatus === 2 && <VipLabel />}
                     </Container>
-                    <Container tw="gap-1">
+                    <Container
+                        tw="gap-1 truncate"
+                        css={[customShowDefault.isShortTitle && tw`w-[150px]`]}
+                    >
                         {song?.artists?.map((artist, index) => (
                             <ArtistItem artist={artist} key={artist.id}>
                                 {`${artist.name}`}
@@ -93,10 +107,22 @@ export const SongCard: React.FC<SongCardProps> = ({ song, onHidden, onShow, cust
                         {convertNumberToTime(song.duration)}
                     </TextCustom>
                 )}
-                <Container className="song-action" tw="gap-2 items-center group-hover:flex hidden">
+                <Container
+                    className="song-action"
+                    tw="gap-2 items-center "
+                    css={[!isShowIcon && tw`hidden group-hover:flex`]}
+                >
+                    {customShowDefault.isShowAddPlaylist && (
+                        <ButtonIcon
+                            size={sizeIcon}
+                            icon="ic-add-play-now"
+                            content={t('add_to_playlist')}
+                            hover
+                        />
+                    )}
                     {customShowDefault.isKaraoke && (
                         <ButtonIcon
-                            size="large"
+                            size={sizeIcon}
                             icon="ic-karaoke"
                             content={t('play_along_with_the_lyrics')}
                             hover
@@ -104,7 +130,7 @@ export const SongCard: React.FC<SongCardProps> = ({ song, onHidden, onShow, cust
                     )}
                     {customShowDefault.isLike && (
                         <ButtonIcon
-                            size="large"
+                            size={sizeIcon}
                             icon="ic-like"
                             content={t('add_to_library')}
                             hover
@@ -118,7 +144,7 @@ export const SongCard: React.FC<SongCardProps> = ({ song, onHidden, onShow, cust
                             onHidden={onHidden}
                             onShow={onShow}
                         >
-                            <ButtonIcon size="large" icon="ic-more" content={t('other')} hover />
+                            <ButtonIcon size={sizeIcon} icon="ic-more" content={t('other')} hover />
                         </Popper>
                     )}
                 </Container>

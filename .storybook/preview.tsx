@@ -1,6 +1,5 @@
 import React from 'react';
-import 'styled-components';
-import 'twin.macro';
+
 import { GlobalStyles } from '../src/lib/Provider/GlobalStyle';
 
 const ThemeWrapper: React.FC<React.PropsWithChildren> = ({ children }) => {

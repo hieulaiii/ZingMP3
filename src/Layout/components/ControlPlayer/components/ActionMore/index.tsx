@@ -1,15 +1,17 @@
-import { useSetAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
+import tw from 'twin.macro';
 
 import { ButtonIcon, TimeSlider } from '@/components/common/interaction';
 import { Container } from '@/components/common/Layout';
-import { volume } from '@/lib/states';
+import { openRightBar, volume } from '@/lib/states';
 import { openLyric } from '@/lib/states/lyric';
 
 export const ActionMore: React.FC = () => {
     const { t } = useTranslation('common');
     const setVolume = useSetAtom(volume);
     const setOpenLyric = useSetAtom(openLyric);
+    const [openRightBarValue, setOpenRightBar] = useAtom(openRightBar);
     return (
         <Container tw="justify-end w-full gap-[10px] items-center">
             <Container tw="justify-end w-full gap-[10px] items-center hidden lg:flex">
@@ -27,7 +29,13 @@ export const ActionMore: React.FC = () => {
                 </Container>
                 <Container tw="h-[33px] w-[1px] bg-whiteAlpha-10 mx-[10px]" />
             </Container>
-            <ButtonIcon content={t('play_list')} icon="ic-list-music" tw="rounded-md" />
+            <ButtonIcon
+                content={t('play_list')}
+                icon="ic-list-music"
+                tw="rounded-md"
+                css={openRightBarValue ? tw`bg-purple-primary` : tw``}
+                onClick={() => setOpenRightBar(!openRightBarValue)}
+            />
         </Container>
     );
 };
